@@ -227,3 +227,9 @@ td {
 .searchTable{
   border: 1px solid rgb(9, 14, 9);
 }
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Optional: You can adjust the height to center vertically within the Tab.Pane */
+}

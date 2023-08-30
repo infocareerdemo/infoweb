@@ -5,7 +5,6 @@ import Sidepannel from '../sidepannel';
 import MainHeader from '../MainHeader';
 
 function StockCashSymbol() {
-    
   const [data, setData] = useState('');
   const [spsymbols, setSpsymbols] = useState([]);
   const [selectedSymbol, setSelectedSymbol] = useState('');
@@ -18,11 +17,12 @@ function StockCashSymbol() {
   }, []);
 
   const getStockPriceList = () => {
-    authservice.getSymbol1(data)
+    authservice.getStockCashSymbol(data)
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
         setSpsymbols(response.data);
         const symbols = response.data.spSymList.map((symbol) => symbol);
+        console.log(response.data);
         setSymbolOptions(symbols);
       })
       .catch(error => {
@@ -35,7 +35,7 @@ function StockCashSymbol() {
     setSelectedSymbol(selectedSymbolValue);
     console.log('Selected Symbol:', selectedSymbolValue);
 
-    authservice.getSymbol1(selectedSymbolValue)
+    authservice.getStockCashSymbol(selectedSymbolValue)
       .then((response) => {
         console.log(response.data.spList);
         setSpList(response.data.spList);
@@ -71,7 +71,11 @@ function StockCashSymbol() {
           <Table striped bordered hover>
             <thead style={{textAlign:"center"}}>
               <tr>
+              
+               
+                
                 <th style={{ border: '1px solid black' }}>SYMBOL</th>
+                <th style={{ border: '1px solid black' }}>SERIES</th>
                 <th style={{ border: '1px solid black' }}>TIMESTAMP</th>
 
               </tr>
@@ -79,10 +83,12 @@ function StockCashSymbol() {
             <tbody>
               {spList.map((stock, index) => (
                 <tr key={index}>
-                  <td style={{ border: '1px solid black' }}>{stock.symbol}</td>
-                  <td style={{ border: '1px solid black' }}>{stock.timestamp}</td>
                   
                  
+                  <td style={{ border: '1px solid black' }}>{stock.symbol}</td>
+                  <td style={{ border: '1px solid black' }}>{stock.series}</td>
+                  <td style={{ border: '1px solid black' }}>{stock.timestamp}</td>
+                  
                 </tr>
               ))}
             </tbody>
@@ -92,4 +98,5 @@ function StockCashSymbol() {
     </div>
   );
 }
-export default StockCashSymbol
+
+export default StockCashSymbol;

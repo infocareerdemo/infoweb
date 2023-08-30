@@ -45,6 +45,7 @@ import WebsocketUserUpdate from './pages/WebsocketUserUpdate';
 import StockCashSymbol from './pages/StockCashSymbol';
 import StockFutureList from './pages/StockFutureList';
 import StockOptionSymbol from './pages/StockOptionSymbol';
+import StockAllPages from './pages/StockAllPages';
 
 
 const App = () => {
@@ -81,6 +82,7 @@ const App = () => {
           <Route path="/stockcashsymbol" element={<StockCashSymbol/>} />
           <Route path="/stockfuturesymbol" element={<StockFutureList/>} />
           <Route path="/stockoptionsymbol" element={<StockOptionSymbol/>} />
+           <Route path="/stockallpages" element={<StockAllPages/>} />
           
           
         <Route path="/nav" element={<Navpage></Navpage>}></Route>

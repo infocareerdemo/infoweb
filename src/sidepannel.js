@@ -73,18 +73,21 @@ const Sidepannel = () => {
             <li className={local.pathname === "/StockPriceDropdow" ? "active" : ""}>
               <Link to="/stockpricedropdow" ><ReceiptOutlinedIcon /><span>StockPriceDrowpdown</span></Link>
             </li>
-            <li className={local.pathname === "/SymbolDropdown" ? "active" : ""}>
+            {/* <li className={local.pathname === "/SymbolDropdown" ? "active" : ""}>
               <Link to="/symboldrop" ><ReceiptOutlinedIcon /><span>StockPriceSymbol</span></Link>
-            </li>
+            </li> */}
            
-            <li className={local.pathname === "/StockCashSymbol" ? "active" : ""}>
+            {/* <li className={local.pathname === "/StockCashSymbol" ? "active" : ""}>
               <Link to="/stockcashsymbol" ><ReceiptOutlinedIcon /><span>StockCashSymbol</span></Link>
-            </li>
-            <li className={local.pathname === "/StockFutureList" ? "active" : ""}>
+            </li> */}
+            {/* <li className={local.pathname === "/StockFutureList" ? "active" : ""}>
               <Link to="/stockfuturesymbol" ><ReceiptOutlinedIcon /><span>StockFutureSymbol</span></Link>
-            </li>
-            <li className={local.pathname === "/StockOptionSymbol" ? "active" : ""}>
+            </li> */}
+            {/* <li className={local.pathname === "/StockOptionSymbol" ? "active" : ""}>
               <Link to="/stockoptionsymbol" ><ReceiptOutlinedIcon /><span>StockOptionSymbol</span></Link>
+            </li> */}
+            <li className={local.pathname === "/StockAllPages" ? "active" : ""}>
+              <Link to="/stockallpages" ><ReceiptOutlinedIcon /><span>StockAllPages</span></Link>
             </li>
             
             

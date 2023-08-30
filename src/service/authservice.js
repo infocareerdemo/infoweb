@@ -415,6 +415,22 @@ const getSymbolList = (spSymb) => {
           });
         };
 
+        const getStockCashSymbol= (data) => {
+          const api = axios.create({
+            baseURL: URL
+          });
+        
+          return api.post("/data/getStockCashSymbol?symbol="+data)
+            .then((response) => {
+              console.log('response:', response);
+              return response;
+            })
+            .catch((error) => {
+              console.log(error);
+              return error;
+            });
+          };
+        
 const authservice = {
   Login,
   WdgeList,
@@ -437,7 +453,8 @@ const authservice = {
   getSymbol,
   getSymbol1,
   getFutureSymbol,
-  getOptionSymbol
+  getOptionSymbol,
+  getStockCashSymbol
 
 
 };
