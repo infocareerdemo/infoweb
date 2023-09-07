@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import "./sidebar.css"
 
 import { Link, useLocation } from "react-router-dom";
+import StockPriceChat from "./StockPriceChat";
 
 const Sidepannel = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -37,6 +38,7 @@ const Sidepannel = () => {
 
   return (
     <div className="sidebar" id="sidebar">
+      <StockPriceChat></StockPriceChat>
       <div className="sidebar-inner slimscroll">
         <div id="sidebar-menu" className="sidebar-menu">
           <ul>
@@ -58,7 +60,7 @@ const Sidepannel = () => {
             {/* <li className={local.pathname === "/ChatRoom" ? "active" : ""}>
               <Link to="/camerarec" ><ReceiptOutlinedIcon /><span>Camera</span></Link>
             </li> */}
-            <li className={local.pathname === "/CompanySearch" ? "active" : ""}>
+            <li className={local.pathname === "/CompanySearch1" ? "active" : ""}>
               <Link to="/companysearch" ><ReceiptOutlinedIcon /><span>CompanySearch</span></Link>
             </li>
             <li className={local.pathname === "/CommonSearch" ? "active" : ""}>
@@ -89,6 +91,12 @@ const Sidepannel = () => {
             <li className={local.pathname === "/StockAllPages" ? "active" : ""}>
               <Link to="/stockallpages" ><ReceiptOutlinedIcon /><span>StockAllPages</span></Link>
             </li>
+            {/* <li className={local.pathname === "/StockPriceChat" ? "active" : ""}>
+              <Link to="/stockpricechat" ><ReceiptOutlinedIcon /><span>StockPriceChat</span></Link>
+            </li> */}
+            {/* <li className={local.pathname === "/WebsocketApi" ? "active" : ""}>
+              <Link to="/websocketapi" ><ReceiptOutlinedIcon /><span>WebsocketApi</span></Link>
+            </li> */}
             
             
           </ul>

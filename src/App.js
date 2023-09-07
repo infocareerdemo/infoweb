@@ -39,19 +39,23 @@ import UserDetailsWebsocket from './pages/UserDetailsWebsocket';
 import UserDetails from './pages/UserDetails';
 import StockPriceList from './pages/StockPriceList';
 import StockListDropdow from './pages/StockListDropdow';
-
 import SymbolDropdown from './pages/SymbolDropdown';
-import WebsocketUserUpdate from './pages/WebsocketUserUpdate';
 import StockCashSymbol from './pages/StockCashSymbol';
 import StockFutureList from './pages/StockFutureList';
 import StockOptionSymbol from './pages/StockOptionSymbol';
 import StockAllPages from './pages/StockAllPages';
+import StockPriceChat from './StockPriceChat';
+import GlobalEventHandlers from './GlobalEventHandlers';
+import CommonSearch1 from './pages/CommonSearch1';
+import WebsocketApi from './pages/WebsocketApi';
 
 
 const App = () => {
 
   const sessionTimeoutMinutes = 30;
   return (
+    // <React.StrictMode>
+    //    <GlobalEventHandlers>
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -69,33 +73,35 @@ const App = () => {
           <Route path="/chngpass" element={<ChngPass />} />
           <Route path="/chatroom" element={<ChatRoom/>} />
           <Route path="/camerarec" element={<ChatRoom/>} />
-          <Route path="/companysearch" element={<CompanySearch/>} />
+          <Route path="/companysearch" element={<CompanySearch/>} /> 
+          {/* <Route path="/commonsearch" element={<CommonSearch1/>} /> */}
           <Route path="/commonsearch" element={<CommonSearch/>} />
           <Route path="/websocketmsg" element={<WebSocketMsg/>} />
           <Route path="/userdetailswebsocket" element={<UserDetailsWebsocket/>} />       
           <Route path="/userlist" element={<UserDetails/>} />
           <Route path="/stockpricelist" element={<StockPriceList/>} />
           <Route path="/stockpricedropdow" element={<StockListDropdow/>} />
-  
           <Route path="/symboldrop" element={<SymbolDropdown/>} />
-          <Route path="/userupdate" element={<WebsocketUserUpdate/>} />
           <Route path="/stockcashsymbol" element={<StockCashSymbol/>} />
           <Route path="/stockfuturesymbol" element={<StockFutureList/>} />
           <Route path="/stockoptionsymbol" element={<StockOptionSymbol/>} />
-           <Route path="/stockallpages" element={<StockAllPages/>} />
+          <Route path="/stockallpages" element={<StockAllPages/>} />
+          <Route path="/stockpricechat" element={<StockPriceChat/>} />
+          <Route path="/websocketapi" element={<WebsocketApi/>} />
           
           
-        <Route path="/nav" element={<Navpage></Navpage>}></Route>
+        {/* <Route path="/nav" element={<Navpage></Navpage>}></Route>
         <Route  index element={<HeaderCamera/>}></Route>
         <Route path="/questions" element={<Qutions></Qutions>}> </Route>
         <Route path='/Imagecapture' element={<Imagecapter></Imagecapter>}></Route>
         <Route path='/Qutionsfromapi' element={<Qutionsfromapi></Qutionsfromapi>}></Route>
         <Route path='/Quiz'element={<Quiz></Quiz>}></Route>
-        <Route path='/QuizResult' element={<QuizResult></QuizResult>}></Route>
-
+        <Route path='/QuizResult' element={<QuizResult></QuizResult>}></Route> */}
+       
         </Routes>
         <SessionTimeout timeoutMinutes={sessionTimeoutMinutes} />
     </BrowserRouter>
+    
   );
 };
 

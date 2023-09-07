@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './header.css';
+import StockPriceChat from './StockPriceChat';
 
 const Header = () => {
     const [activeLink, setActiveLink] = useState('');
@@ -16,7 +17,10 @@ const Header = () => {
     };
 
     return (
+        <div>
+        <StockPriceChat></StockPriceChat>
         <header className="header">
+        {/* <StockPriceChat></StockPriceChat> */}
             <div style={{display:"flex",justifyContent:"space-between",margin:"15px",width:"25%",float:"right"}}>
                 <div className={`header__nav-item ${activeLink === 'home' ? 'active' : ''}`}>
                     <Link to="/" onClick={() => handleLinkClick('home')}>Home</Link>
@@ -35,6 +39,7 @@ const Header = () => {
                 </div>
             </div>
         </header>
+        </div>
     );
 };
 
