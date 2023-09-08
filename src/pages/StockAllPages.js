@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Form, Table, Nav, Tab } from 'react-bootstrap';
 import Select from 'react-select';
 import authservice from '../service/authservice';
-import Sidepannel from '../sidepannel';
-import MainHeader from '../MainHeader';
 import StockFutureList from './StockFutureList';
 import StockCashSymbol from './StockCashSymbol';
 import SymbolDropdown from './SymbolDropdown';
 import StockOptionSymbol from './StockOptionSymbol';
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
 
 function StockAllPages() {
 
   return (
     <div>
-      <MainHeader />
-      <Sidepannel />
+      <MainHeader/>
+       <Sidepannel/>
       <div className="page-wrapper">
         
         <Tab.Container id="symbol-tabs" defaultActiveKey="option">

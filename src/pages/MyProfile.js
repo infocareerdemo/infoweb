@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Sidepannel from "../sidepannel";
 import authservice from "../service/authservice";
-import MainHeader from "../MainHeader";
 import moment from "moment";
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
 
 const MyProfile = () => {
 
@@ -43,8 +43,8 @@ const MyProfile = () => {
   }, [])
   return (
     <div>
-      <MainHeader />
-      <Sidepannel />
+      <MainHeader/>
+       <Sidepannel/>
       <div className="page-wrapper">
         <h2>My Profile</h2>
         <div style={{ width: "100%", height: "100%" }}>

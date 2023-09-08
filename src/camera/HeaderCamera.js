@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import MainHeader from '../MainHeader';
-import Sidepannel from '../sidepannel';
+
 
 function HeaderCamera() {
   const [isClicked, setIsClicked] = useState(false);

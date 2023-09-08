@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Pagination } from 'react-bootstrap';
 import authservice from '../service/authservice';
-import MainHeader from "../MainHeader";
-import Sidepannel from "../sidepannel";
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
+
 
 function StockPriceList() {
   const [stockPrices, setStockPrices] = useState([]);
@@ -37,8 +38,8 @@ function StockPriceList() {
   return (
     <div>
 
-             <MainHeader />
-             <Sidepannel />
+       <MainHeader/>
+       <Sidepannel/>   
              <div className="page-wrapper">
       <h1>Stock Prices</h1>
 

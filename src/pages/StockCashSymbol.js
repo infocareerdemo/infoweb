@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Table } from 'react-bootstrap';
 import authservice from '../service/authservice';
-import Sidepannel from '../sidepannel';
-import MainHeader from '../MainHeader';
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
 
 function StockCashSymbol() {
   const [data, setData] = useState('');
@@ -48,8 +48,8 @@ function StockCashSymbol() {
 
   return (
     <div>
-      <MainHeader />
-      <Sidepannel />
+       <MainHeader/>
+       <Sidepannel/>
       <div className="page-wrapper">
         <Form.Group>
           <Form.Label>Select Symbol:</Form.Label>

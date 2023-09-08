@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 import "./sidebar.css"
 
 import { Link, useLocation } from "react-router-dom";
-import StockPriceChat from "./StockPriceChat";
+import StockPriceChat from "../../pages/chat/StockPriceChat";
+
 
 const Sidepannel = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -38,7 +39,7 @@ const Sidepannel = () => {
 
   return (
     <div className="sidebar" id="sidebar">
-      <StockPriceChat></StockPriceChat>
+    <StockPriceChat/>
       <div className="sidebar-inner slimscroll">
         <div id="sidebar-menu" className="sidebar-menu">
           <ul>

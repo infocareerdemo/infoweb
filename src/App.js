@@ -1,29 +1,19 @@
 import React from 'react';
 import { BrowserRouter , Route, Routes } from 'react-router-dom';
-import Home from './Home';
-import Login from './Login';
-import HomePage from './HomePage';
 import './App.css';
 import UserDetailsComponent from './pages/UserDetailsComponent';
 import WdgwheelList from './pages/WdgwheelList';
-import Sidepannel from './sidepannel';
 import AddUserComponent from './pages/AddUserComponent';
 import CameraComponent from './pages/CameraComponent';
 import PaginationSearch from './pages/PaginationSearch';
 import LineChart from './pages/LineChart';
 import RegisterComponent from './pages/RegisterComponent';
-import Login1 from './Login1';
 import MyProfile from './pages/MyProfile';
-import Header from './Header';
-import MainHeader from './MainHeader';
 //import './style.css';
 import './bootstrap.css'
 import './bootstrap.min.css';
 import SessionTimeout from './service/SessionTimeOut';
-import ChangePassword from './pages/ChangePassword';
-import ChangePaswd from './pages/ChangePaswd';
-import ChngPass from './pages/ChngPass';
-import ChatRoom from './chatRoom';
+import ChatRoom from './poc/chatRoom';
 import Navpage from './camera/Navpage';
 import HeaderCamera from './camera/HeaderCamera';
 import Qutions from './camera/Qutions';
@@ -44,8 +34,12 @@ import StockCashSymbol from './pages/StockCashSymbol';
 import StockFutureList from './pages/StockFutureList';
 import StockOptionSymbol from './pages/StockOptionSymbol';
 import StockAllPages from './pages/StockAllPages';
-import StockPriceChat from './StockPriceChat';
+import StockPriceChat from './pages/chat/StockPriceChat';
 import WebsocketApi from './pages/WebsocketApi';
+import Home from './components/header/Home';
+import Login from './pages/login/Login';
+import HomePage from './pages/HomePage';
+import ChangePassword from './pages/ChangePassword';
 
 
 const App = () => {
@@ -56,9 +50,9 @@ const App = () => {
     //    <GlobalEventHandlers>
     <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home/>} />
           <Route path="/login" element={<Login />} />
-          <Route path="/main" element={<HomePage />} />
+          <Route path="/main" element={<HomePage/>} />
           <Route path="/userdetailscomponent" element={<UserDetailsComponent />} />
           <Route path="/wdgwheellist" element={<WdgwheelList />} />
           <Route path="/adduser" element={<AddUserComponent />} />
@@ -68,7 +62,7 @@ const App = () => {
           <Route path="/linechart" element={<LineChart />} />
           <Route path="/register" element={<RegisterComponent />} />
           <Route path="/myprofile" element={<MyProfile />} />
-          <Route path="/chngpass" element={<ChngPass />} />
+          <Route path="/chngpass" element={<ChangePassword />} />
           <Route path="/chatroom" element={<ChatRoom/>} />
           <Route path="/camerarec" element={<ChatRoom/>} />
           <Route path="/companysearch" element={<CompanySearch/>} /> 
@@ -87,13 +81,15 @@ const App = () => {
           <Route path="/websocketapi" element={<WebsocketApi/>} />
           
           
-        {/* <Route path="/nav" element={<Navpage></Navpage>}></Route>
+          {/* uncomment below line for testing QA using facerecognize and background noice */}
+          
+         {/* <Route path="/nav" element={<Navpage></Navpage>}></Route>
         <Route  index element={<HeaderCamera/>}></Route>
         <Route path="/questions" element={<Qutions></Qutions>}> </Route>
         <Route path='/Imagecapture' element={<Imagecapter></Imagecapter>}></Route>
         <Route path='/Qutionsfromapi' element={<Qutionsfromapi></Qutionsfromapi>}></Route>
         <Route path='/Quiz'element={<Quiz></Quiz>}></Route>
-        <Route path='/QuizResult' element={<QuizResult></QuizResult>}></Route> */}
+        <Route path='/QuizResult' element={<QuizResult></QuizResult>}></Route>  */}
        
         </Routes>
         <SessionTimeout timeoutMinutes={sessionTimeoutMinutes} />

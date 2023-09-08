@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams, useLocation ,useNavigate } from 'react-router-dom';
 import authservice from '../service/authservice';
-import MainHeader from '../MainHeader';
-import Sidepannel from '../sidepannel';
+import MainHeader from '../components/mainheader/MainHeader';
+import Sidepannel from '../components/sidebar/sidepannel';
+
 
 
 const AddUserComponent = () => {
@@ -55,8 +56,8 @@ const AddUserComponent = () => {
 
     return (
         <div>
-            <MainHeader />
-            <Sidepannel />
+           <MainHeader/>
+           <Sidepannel/>
             <div className="page-wrapper">
                 <div>
                     <div className="card col-md-6 offset-md-3 offset-md-3">

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import UserDetailsService from '../service/UserDetailsService';
 import { useNavigate } from "react-router-dom";
-import Sidepannel from '../sidepannel';
-import MainHeader from '../MainHeader';
 import { Link } from 'react-router-dom'
 import authservice from '../service/authservice';
 import SockJsClient from 'react-stomp';
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
 
 const UserDetailsComponent = () => {
 
@@ -50,8 +50,8 @@ const UserDetailsComponent = () => {
 
     return (
         <div>
-            <MainHeader />
-            <Sidepannel />
+           <MainHeader/>
+       <Sidepannel/>
             <div className="page-wrapper">
                 <h2 className="text-center">Users List</h2>
                 <div style={{ float: "left", width: "100%" }}>

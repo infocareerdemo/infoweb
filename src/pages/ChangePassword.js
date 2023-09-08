@@ -1,8 +1,8 @@
-import React, { useState, } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postApi } from '../service/APICall';
-import MainHeader from '../MainHeader';
-import Sidepannel from '../sidepannel';
+import MainHeader from '../components/mainheader/MainHeader';
+import Sidepannel from '../components/sidebar/sidepannel';
 
 const ChangePassword = () => {
     const [oldPassword, setOldPassword] = useState('');
@@ -11,36 +11,34 @@ const ChangePassword = () => {
     const [usertoken] = useState(localStorage.getItem("token"));
     const navigate = useNavigate();
 
-
     const data = {
         oldPassword: oldPassword,
         newPassword: newPassword
-    }
-
+    };
     const headers = {
-        headers: { Authorization: `Bearer ${usertoken}` }
-        // headers:{}
-    }
+        Authorization: `Bearer ${usertoken}`
+    };
     const apiUrl = "user/chngPswd";
-
+    
     const submit = async () => {
-
         if (newPassword !== confirmPassword) {
-            alert("newpassword $ oldpassword does not mach")
+            alert("New password and old password does not match");
+        } else {
+            try {
+                const response = await postApi('POST', apiUrl, data, headers);
+                console.log(response, "Password changed successfully");
+                alert("Password changed successfully");
+                navigate('/main');
+            } catch (error) {
+                console.error('Error changing password:', error.message);
+            }
         }
-        else {
-            const pass = await postApi('POST', apiUrl, data, headers);
-            alert("sbsh")
-            console.log(pass, "gygy")
-            setOldPassword(pass.oldPassword)
-            setNewPassword(pass.newPassword)
-        }
-    }
+    };
 
     return (
         <div>
-            <MainHeader></MainHeader>
-            <Sidepannel></Sidepannel>
+         <MainHeader></MainHeader>
+         <Sidepannel/>
             <div>
                 <div style={{ width: "100%", height: "100%" }}>
                     <div className="ChangePass-Container">
@@ -69,7 +67,7 @@ const ChangePassword = () => {
                             </div>
 
                             <div className="form-group">
-                                <label>Confrim Password</label>
+                                <label>Confirm Password</label>
                                 <input
                                     type="password"
                                     id="confirm-password"
@@ -78,7 +76,7 @@ const ChangePassword = () => {
                                     required
                                 />
                             </div>
-                            <button type="submit" onClick={submit}>Confrim</button>
+                            <button type="button" onClick={submit}>Confirm</button>
                         </form>
                     </div>
                 </div>
@@ -86,4 +84,5 @@ const ChangePassword = () => {
         </div>
     );
 };
-export default ChangePassword
+
+export default ChangePassword;

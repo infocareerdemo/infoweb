@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-google-charts';
 import authservice from '../service/authservice';
-import MainHeader from '../MainHeader';
-import Sidepannel from '../sidepannel';
-
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
 const LineChartOptions = {
 
   hAxis: {
@@ -53,8 +52,8 @@ const LineChart = () => {
   if (loading) {
     return (
       <div>
-        <MainHeader />
-        <Sidepannel />
+         <MainHeader/>
+       <Sidepannel/>
         <div className="page-wrapper">Loading...</div>
       </div>
     )

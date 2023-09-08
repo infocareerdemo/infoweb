@@ -11,8 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Modal } from "react-bootstrap";
 // import 'react-toastify/dist/ReactToastify.css';
-import Sidepannel from '../sidepannel';
-import MainHeader from '../MainHeader';
+
 
 const Qutions = () => {
 
@@ -259,8 +258,7 @@ const Qutions = () => {
 
     return (
              <div>
-       <MainHeader></MainHeader>
-       <Sidepannel></Sidepannel>
+     
             <div className='app'>
 
                 {/* <div className='question-section'>

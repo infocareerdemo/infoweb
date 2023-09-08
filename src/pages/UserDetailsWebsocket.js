@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Sidepannel from '../sidepannel';
-import MainHeader from '../MainHeader';
 import io from 'socket.io-client';
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
 
 const UserDetailsWebsocket = () => {
   const [users, setUsers] = useState([]);
@@ -44,8 +44,8 @@ const UserDetailsWebsocket = () => {
 
   return (
     <div>
-      <MainHeader />
-      <Sidepannel />
+      <MainHeader/>
+       <Sidepannel/>
       <div className="page-wrapper">
         <h2 className="text-center">Users List</h2>
         <table style={{ width: '100%', border: '1px solid black', margin: '2%' }}>

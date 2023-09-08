@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import authservice from './service/authservice';
+import authservice from '../../service/authservice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'; // Import the send icon from Font Awesome
 

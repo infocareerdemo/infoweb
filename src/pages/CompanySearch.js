@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { getApi } from '../service/APICall';
-import MainHeader from "../MainHeader";
-import Sidepannel from "../sidepannel";
-
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
 const CompanySearch = () => {
 
     const [isListOpen, setIsListOpen] = useState(false);
@@ -50,8 +49,8 @@ const CompanySearch = () => {
 };
   return (
     <div>
-        <MainHeader></MainHeader>
-        <Sidepannel></Sidepannel>
+       <MainHeader/>
+       <Sidepannel/>
     <div className="page-wrapper">
    <label>Search Box</label>
    <input

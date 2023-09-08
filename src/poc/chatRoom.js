@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import {over} from 'stompjs';
 import SockJS from 'sockjs-client';
 //import './chat.css';
-import MainHeader from './MainHeader';
-import Sidepannel from './sidepannel';
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
+
 
 var stompClient =null;
 const ChatRoom = () => {
@@ -165,8 +166,8 @@ const ChatRoom = () => {
     }
     return (
         <div>
-        <MainHeader />
-        <Sidepannel />
+         <MainHeader/>
+            <Sidepannel/>
     <div className="container">
         {userData.connected?
         <div className="chat-box">

@@ -1,8 +1,7 @@
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 // import { Modal } from "react-bootstrap";
-import Sidepannel from "./sidepannel";
-import "./sidebar.css"
+import "../../components/sidebar/sidebar.css"
 import { CgProfile } from "react-icons/cg"
 
 const MainHeader = (props) => {

@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Pagination, Table, Input } from 'antd'; 
 import authservice from '../service/authservice';
-import MainHeader from '../MainHeader';
-import Sidepannel from '../sidepannel';
-
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
 const { Search } = Input; 
 
 function PaginationSearch() {
@@ -93,8 +92,8 @@ function PaginationSearch() {
 
   return (
     <div>
-            <MainHeader />
-      <Sidepannel />
+           <MainHeader/>
+       <Sidepannel/>
       <div className="page-wrapper">
       {/* Search Bar */}
       <Search

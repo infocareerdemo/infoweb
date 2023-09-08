@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SockJsClient from 'react-stomp';
-import Sidepannel from '../sidepannel';
-import MainHeader from '../MainHeader';
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
 
 const SOCKET_URL = 'http://localhost:8080/ws';
 
@@ -37,8 +37,8 @@ const WebSocketMsg = () => {
 
   return (
     <div>
-      <MainHeader />
-             <Sidepannel />
+       <MainHeader/>
+        <Sidepannel/>
              <div className="page-wrapper">
       <SockJsClient
         url={SOCKET_URL}

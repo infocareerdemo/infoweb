@@ -1,8 +1,8 @@
 import axios from 'axios';
 import authservice from '../service/authservice';
 import React, { useState, useEffect } from 'react';
-import MainHeader from '../MainHeader';
-import Sidepannel from '../sidepannel';
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
 
 const WdgwheelList = () => {
   const [data, setData] = useState([])
@@ -24,8 +24,8 @@ const WdgwheelList = () => {
 
   return (
     <div>
-      <MainHeader />
-      <Sidepannel />
+     <MainHeader/>
+       <Sidepannel/>
       <div className="page-wrapper">
         <div className="page-header">
           <h1 style={{ marginLeft: '4%' }}>Data from wdgwheel API</h1>

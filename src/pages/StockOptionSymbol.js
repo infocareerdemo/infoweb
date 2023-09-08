@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Form, Table } from 'react-bootstrap';
 import Select from 'react-select'; 
 import authservice from '../service/authservice';
-import Sidepannel from '../sidepannel';
-import MainHeader from '../MainHeader';
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
 
 function StockOptionSymbol() {
   const [data, setData] = useState('');
@@ -50,8 +50,8 @@ function StockOptionSymbol() {
 
   return (
     <div>
-      <MainHeader />
-      <Sidepannel />
+       <MainHeader/>
+       <Sidepannel/>
       <div className="page-wrapper">
         <Form.Group>
           <Form.Label>SELECT SYMBOL:</Form.Label>

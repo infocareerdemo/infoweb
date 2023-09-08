@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Pagination, Form } from 'react-bootstrap';
 import authservice from '../service/authservice';
-import MainHeader from "../MainHeader";
-import Sidepannel from "../sidepannel";
+import MainHeader from "../components/mainheader/MainHeader";
+import Sidepannel from "../components/sidebar/sidepannel";
+
 
 function StockListDropdow() {
   const [stockPrices, setStockPrices] = useState([]);
@@ -73,8 +74,8 @@ function StockListDropdow() {
 
   return (
     <div>
-      <MainHeader />
-      <Sidepannel />
+       <MainHeader/>
+       <Sidepannel/>
       <div className="page-wrapper">
         <h1>Stock Prices</h1>
 

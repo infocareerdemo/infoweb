@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import authservice from './service/authservice';
+import authservice from '../../service/authservice';
 import './login.css';
-import Header from './Header';
+import Header from '../../components/header/Header';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -74,7 +74,7 @@ const Login = () => {
 
   return (
     <div>
-      <Header></Header>
+      <Header/>
         <div className='account-content' style={{marginTop:"10px"}}>
         <div className="login-container">
           <div style={{display:"flex",justifyContent:"center",width:"100%"}}>
