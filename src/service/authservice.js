@@ -420,7 +420,7 @@ const getSymbolList = (spSymb) => {
             baseURL: URL
           });
         
-          return api.post("/data/getStockCashSymbol?symbol="+data)
+          return api.get("/data/getStockCashSymbol?symbol="+data)
             .then((response) => {
               console.log('response:', response);
               return response;

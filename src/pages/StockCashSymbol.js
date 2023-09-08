@@ -83,8 +83,6 @@ function StockCashSymbol() {
             <tbody>
               {spList.map((stock, index) => (
                 <tr key={index}>
-                  
-                 
                   <td style={{ border: '1px solid black' }}>{stock.symbol}</td>
                   <td style={{ border: '1px solid black' }}>{stock.series}</td>
                   <td style={{ border: '1px solid black' }}>{stock.timestamp}</td>

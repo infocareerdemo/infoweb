@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import authservice from "../service/authservice";
+import { getApi } from '../service/APICall';
 import MainHeader from "../MainHeader";
 import Sidepannel from "../sidepannel";
 
@@ -8,6 +8,8 @@ const CommonSearch = () => {
     const [selectedData, setSelectedData] = useState([]);
     const [selectedColumn, setSelectedColumn] = useState(""); 
     const [searchValue, setSearchValue] = useState(""); 
+    const [loading, setLoading] = useState(false); // Loading indicator state
+    const [serverError, setServerError] = useState(null); // Server error state
 
     const columns = ["spid", "spisin", "spinstrument", "spsymbol"];
 
@@ -15,28 +17,37 @@ const CommonSearch = () => {
         setSelectedData((prevSelectedData) => [...prevSelectedData, item]);
         setIsListOpen(false);
     };
+    const apiUrl = "search";
+    
+    const commonSearch = async (searchQuery) => {
+        setLoading(true); // Show loading indicator
+        setServerError(null); // Clear previous server errors
 
-    const CommonSearch = (searchQuery) => {
         if (searchQuery.length >= 3) {
-            authservice.commonSearch(searchQuery)
-                .then((response) => {
-                   // setSelectedColumn(columns[0]); 
-                    setSelectedData([]); 
-                    console.log(response);
-                    setSelectedData(response.data);
-                })
-                .catch((error) => {
-                    console.error("Error fetching search results:", error);
-                });
+            const params = {
+                keyword: searchQuery, 
+            };
+            try {
+                const response = await getApi('GET', apiUrl, params);
+                setSelectedData([]); 
+                console.log(response);
+                setSelectedData(response);
+            } catch (error) {
+                console.error(error);
+                setServerError("An error occurred while fetching data. Please try again later.");
+            } finally {
+                setLoading(false); // Hide loading indicator
+            }
         } else {
             setSelectedData([]);
+            setLoading(false); // Hide loading indicator
         }
     };
 
     return (
         <div>
-            <MainHeader />
-            <Sidepannel />
+            <MainHeader></MainHeader>
+            <Sidepannel></Sidepannel>
             <div className="page-wrapper">
                 <label>Search Box</label>
                 <input
@@ -46,14 +57,8 @@ const CommonSearch = () => {
                     onChange={(e) => setSearchValue(e.target.value)}
                     onFocus={() => setIsListOpen(false)}
                 />
-                {/* <select value={selectedColumn} onChange={(e) => setSelectedColumn(e.target.value)}>
-                    {columns.map((col) => (
-                        <option key={col} value={col}>
-                            {col}
-                        </option>
-                    ))}
-                </select> */}
-                <button onClick={() => CommonSearch(searchValue)}>Search</button>
+            
+                <button onClick={() => commonSearch(searchValue)}>Search</button>
 
                 {isListOpen && selectedData.length > 0 && (
                     <div style={{ border: "1px solid", width: "150px", marginLeft: "6%" }}>
@@ -70,6 +75,9 @@ const CommonSearch = () => {
                         </ul>
                     </div>
                 )}
+
+                {loading && <p>Loading...</p>} {/* Display loading indicator */}
+                {serverError && <p style={{ color: "red" }}>{serverError}</p>} {/* Display server error message */}
 
                 <h1 style={{ alignItems: "center", justifyContent: "center", textAlign: "center" }}>Datatable</h1>
                 <div className="searchTable">
@@ -99,6 +107,6 @@ const CommonSearch = () => {
             </div>
         </div>
     );
-};
+}
 
 export default CommonSearch;

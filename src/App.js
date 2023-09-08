@@ -45,8 +45,6 @@ import StockFutureList from './pages/StockFutureList';
 import StockOptionSymbol from './pages/StockOptionSymbol';
 import StockAllPages from './pages/StockAllPages';
 import StockPriceChat from './StockPriceChat';
-import GlobalEventHandlers from './GlobalEventHandlers';
-import CommonSearch1 from './pages/CommonSearch1';
 import WebsocketApi from './pages/WebsocketApi';
 
 
@@ -74,7 +72,6 @@ const App = () => {
           <Route path="/chatroom" element={<ChatRoom/>} />
           <Route path="/camerarec" element={<ChatRoom/>} />
           <Route path="/companysearch" element={<CompanySearch/>} /> 
-          {/* <Route path="/commonsearch" element={<CommonSearch1/>} /> */}
           <Route path="/commonsearch" element={<CommonSearch/>} />
           <Route path="/websocketmsg" element={<WebSocketMsg/>} />
           <Route path="/userdetailswebsocket" element={<UserDetailsWebsocket/>} />       

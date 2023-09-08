@@ -1,24 +1,25 @@
 import axios from "axios";
 const BaseUrl = "http://localhost:8080/"
-export const getApi = async (method, url, params = null , headers = null) => {
+export const getApi = async (method, url, params, headers = null) => {
     try {
         const response = await axios({
             method: method,
-            url: BaseUrl + url ,
+            url: BaseUrl + url,
             params: params,
             headers: headers,
         });
+        console.log(params,"param")
         return response.data;
 
     } catch (error) {
-        console.error('API Error:', error.message);       
+        console.error('API Error:', error.message);
         throw error;
     }
 };
 
 export const postApi = async (method, url, data, headers) => {
     try {
-        
+
         const response = await axios({
             method: method,
             url: BaseUrl + url,
