@@ -7,12 +7,12 @@ import GlobalEventHandlers from "./utils/GlobalEventHandlers";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <GlobalEventHandlers>
-    <ProSidebarProvider>
+    {/* <GlobalEventHandlers> */}
+     <ProSidebarProvider> 
      
       <App />
       
-    </ProSidebarProvider>
-    </GlobalEventHandlers>
+     </ProSidebarProvider> 
+    {/* </GlobalEventHandlers> */}
   </React.StrictMode>
 );

@@ -1,63 +1,84 @@
 import React, { useEffect, useState } from 'react'
-import {over} from 'stompjs';
+import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
-// import './chat.css';
+//  import './chat.css';
 import MainHeader from "../components/mainheader/MainHeader";
 import Sidepannel from "../components/sidebar/sidepannel";
-
-
-var stompClient =null;
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button } from 'react-bootstrap';
+var stompClient = null;
 const ChatRoom = () => {
-    const [privateChats, setPrivateChats] = useState(new Map());   
-    const [groupChats, setGroupChats] = useState(new Map());   
-    const [publicChats, setPublicChats] = useState([]); 
-    const [tab,setTab] =useState("CHATROOM");
-    const [grpFlag,setGrpFlag] =useState(false);
+    const [privateChats, setPrivateChats] = useState(new Map());
+    const [groupChats, setGroupChats] = useState(new Map());
+    const [publicChats, setPublicChats] = useState([]);
+    const [tab, setTab] = useState("CHATROOM");
+    const [grpFlag, setGrpFlag] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    // const [show, setShow] = useState(false);
+    const [mobileshow, setMobileshow] = useState(false);
+    const [showChatModal, setShowChatModal] = useState(false);
+    const openModal = () => {
+        setShowModal(true);
+    };
+
+    // const closeModal = () => {
+    //     setShowModal(false);
+    // };
+    const openChatModal = () => {
+        setShowChatModal(true);
+    };
+    const [show, setShow] = useState(false);
+
+
+
+    const modalClose = () => setShow(false);
+
+    const modalShow = () => setShow(true);
     const [userData, setUserData] = useState({
         username: '',
         receivername: '',
         connected: false,
         message: '',
-        groupId:""
-      });
+        groupId: ""
+    });
     useEffect(() => {
-      console.log(userData);
+        console.log(userData);
     }, [userData]);
 
-    const connect =()=>{
-        let Sock = new SockJS('http://192.168.2.40:8080/ws');
+    const connect = () => {
+        let Sock = new SockJS('http://localhost:8080/ws');
         stompClient = over(Sock);
-        stompClient.connect({},onConnected, onError);
+        stompClient.connect({}, onConnected, onError);
     }
 
     const onConnected = () => {
-        setUserData({...userData,"connected": true});
+        setUserData({ ...userData, "connected": true });
         stompClient.subscribe('/chatroom/public', onMessageReceived);
-        stompClient.subscribe('/user/'+userData.username+'/private', onPrivateMessage);
-        stompClient.subscribe('/user/'+userData.groupId+'/topic', onGroupMessage);
+        stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessage);
+        stompClient.subscribe('/user/' + userData.groupId + '/topic', onGroupMessage);
         userJoin();
     }
 
-    const userJoin=()=>{
-          var chatMessage = {
+    const userJoin = () => {
+        var chatMessage = {
             senderName: userData.username,
-            groupId:userData.groupId,
-            status:"JOIN"
-          };
-          stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+            groupId: userData.groupId,
+            status: "JOIN"
+        };
+        stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
     }
 
-    const onMessageReceived = (payload)=>{
+    const onMessageReceived = (payload) => {
         var payloadData = JSON.parse(payload.body);
-        switch(payloadData.status){
+        switch (payloadData.status) {
             case "JOIN":
-                if(!privateChats.get(payloadData.senderName)){
-                    privateChats.set(payloadData.senderName,[]);
+                if (!privateChats.get(payloadData.senderName)) {
+                    privateChats.set(payloadData.senderName, []);
                     setPrivateChats(new Map(privateChats));
                 }
-                if(!groupChats.get(payloadData.groupId) && (userData.groupId === payloadData.groupId)){
-                    
-                    groupChats.set(payloadData.groupId,[]);
+                if (!groupChats.get(payloadData.groupId) && (userData.groupId === payloadData.groupId)) {
+
+                    groupChats.set(payloadData.groupId, []);
                     setGroupChats(new Map(groupChats));
                 }
                 break;
@@ -67,198 +88,224 @@ const ChatRoom = () => {
                 break;
         }
     }
-    
-    const onPrivateMessage = (payload)=>{
+
+    const onPrivateMessage = (payload) => {
         console.log(payload);
         var payloadData = JSON.parse(payload.body);
-        if(privateChats.get(payloadData.senderName)){
+        if (privateChats.get(payloadData.senderName)) {
             privateChats.get(payloadData.senderName).push(payloadData);
             setPrivateChats(new Map(privateChats));
-        }else{
-            let list =[];
+        } else {
+            let list = [];
             list.push(payloadData);
-            privateChats.set(payloadData.senderName,list);
+            privateChats.set(payloadData.senderName, list);
             setPrivateChats(new Map(privateChats));
         }
     }
-    const onGroupMessage = (payload)=>{
+    const onGroupMessage = (payload) => {
         console.log(payload);
         var payloadData = JSON.parse(payload.body);
-        if(groupChats.get(payloadData.groupId)){
+        if (groupChats.get(payloadData.groupId)) {
             groupChats.get(payloadData.groupId).push(payloadData);
             setGroupChats(new Map(groupChats));
-        }else{
-            let list =[];
+        } else {
+            let list = [];
             list.push(payloadData);
-            groupChats.set(payloadData.groupId,list);
+            groupChats.set(payloadData.groupId, list);
             setGroupChats(new Map(groupChats));
         }
     }
 
     const onError = (err) => {
         console.log(err);
-        
+
     }
 
-    const handleMessage =(event)=>{
-        const {value}=event.target;
-        setUserData({...userData,"message": value});
+    const handleMessage = (event) => {
+        const { value } = event.target;
+        setUserData({ ...userData, "message": value });
     }
-    const sendValue=()=>{
-            if (stompClient) {
-              var chatMessage = {
+    const sendValue = () => {
+        if (stompClient) {
+            var chatMessage = {
                 senderName: userData.username,
                 message: userData.message,
-                status:"MESSAGE"
-              };
-              console.log(chatMessage);
-              stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
-              setUserData({...userData,"message": ""});
+                status: "MESSAGE"
+            };
+            console.log(chatMessage);
+            stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+            setUserData({ ...userData, "message": "" });
+        }
+    }
+
+    const sendPrivateValue = () => {
+        if (stompClient) {
+            var chatMessage = {
+                senderName: userData.username,
+                receiverName: tab,
+                message: userData.message,
+                status: "MESSAGE"
+            };
+
+            if (userData.username !== tab) {
+                privateChats.get(tab).push(chatMessage);
+                setPrivateChats(new Map(privateChats));
             }
-    }
-
-    const sendPrivateValue=()=>{
-        if (stompClient) {
-          var chatMessage = {
-            senderName: userData.username,
-            receiverName:tab,
-            message: userData.message,
-            status:"MESSAGE"
-          };
-          
-          if(userData.username !== tab){
-            privateChats.get(tab).push(chatMessage);
-            setPrivateChats(new Map(privateChats));
-          }
-          stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-          setUserData({...userData,"message": ""});
+            stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
+            setUserData({ ...userData, "message": "" });
         }
     }
-    const sendgroupValue=()=>{
+    const sendgroupValue = () => {
         if (stompClient) {
-          var chatMessage = {
-            senderName: userData.username,
-            groupId:tab,
-            message: userData.message,
-            status:"MESSAGE"
-          };
-          
-          if(userData.groupId !== tab){
-            groupChats.get(tab).push(chatMessage);
-            setGroupChats(new Map(groupChats));
-          }
-          stompClient.send("/app/topic-message", {}, JSON.stringify(chatMessage));
-          setUserData({...userData,"message": ""});
+            var chatMessage = {
+                senderName: userData.username,
+                groupId: tab,
+                message: userData.message,
+                status: "MESSAGE"
+            };
+
+            if (userData.groupId !== tab) {
+                groupChats.get(tab).push(chatMessage);
+                setGroupChats(new Map(groupChats));
+            }
+            stompClient.send("/app/topic-message", {}, JSON.stringify(chatMessage));
+            setUserData({ ...userData, "message": "" });
         }
     }
 
-    const handleUsername=(event)=>{
-        const {value}=event.target;
-        setUserData({...userData,"username": value});
+    const handleUsername = (event) => {
+        const { value } = event.target;
+        setUserData({ ...userData, "username": value });
     }
-    const handlegroupId=(event)=>{
-        const {value}=event.target;
-        setUserData({...userData,"groupId": value});
+    const handlegroupId = (event) => {
+        const { value } = event.target;
+        setUserData({ ...userData, "groupId": value });
     }
-
-    const registerUser=()=>{
+    const closeModal = () => {
+        setShowChatModal(false);
+    };
+    const registerUser = () => {
         connect();
     }
     return (
         <div>
-         <MainHeader/>
-            <Sidepannel/>
-    <div className="container">
-        {userData.connected?
-        <div className="chat-box">
-            <div className="member-list">
-                <ul>
-                    <li onClick={()=>{setTab("CHATROOM")}} className={`member ${tab==="CHATROOM" && "active"}`}>Chatroom</li>
-                    {[...privateChats.keys()].map((name,index)=>(
-                        <li onClick={()=>{ setGrpFlag(false)
-                            setTab(name)}} className={`member ${tab===name && "active"}`} key={index}>{name}</li>
-                    ))}
-                     {[...groupChats.keys()].map((name,index)=>(
-                        <li onClick={()=>{setTab(name)
-                            setGrpFlag(true)} } className={`member ${tab===name && "active"}`} key={index}>{name}</li>
-                    ))}
-                     {/* <li onClick={()=>{setTab("GROUP")}} className={`member ${tab==="GROUP" && "active"}`}>GROUP</li> */}
-                </ul>
+            <MainHeader />
+            <Sidepannel />
+            <div className="container">
+                <div className="App p-4">
+                    <MainHeader openChatModal={openChatModal} />
+                    <Button onClick={openChatModal}> Chat Box </Button>
+                    <Modal show={showChatModal} onHide={closeModal} size="lg">
+                        <Modal.Header closeButton>
+
+                            {/* <button type="button" className="close" onClick={closeModal}>
+                                <span aria-hidden="true">&times;</span>
+                            </button> */}
+
+                        </Modal.Header>
+
+                        <Modal.Body>
+                            <div>
+                                {userData.connected ?
+                                    <div style={{ display: "flex", flexDirection: 'row' }}>
+                                        <div className="member-list">
+                                            <ul>
+                                                <li onClick={() => { setTab("CHATROOM") }} className={`member ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
+                                                {[...privateChats.keys()].map((name, index) => (
+                                                    <li onClick={() => {
+                                                        setGrpFlag(false)
+                                                        setTab(name)
+                                                    }} className={`member ${tab === name && "active"}`} key={index}>{name}</li>
+                                                ))}
+                                                {[...groupChats.keys()].map((name, index) => (
+                                                    <li onClick={() => {
+                                                        setTab(name)
+                                                        setGrpFlag(true)
+                                                    }} className={`member ${tab === name && "active"}`} key={index}>{name}</li>
+                                                ))}
+                                                {/* <li onClick={()=>{setTab("GROUP")}} className={`member ${tab==="GROUP" && "active"}`}>GROUP</li> */}
+                                            </ul>
+                                        </div>
+                                        {tab === "CHATROOM" && <div className="chat-content">
+                                            <ul className="chat-messages">
+                                                {publicChats.map((chat, index) => (
+                                                    <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
+                                                        {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
+                                                        <div className="message-data">{chat.message}</div>
+                                                        {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
+                                                    </li>
+                                                ))}
+                                            </ul>
+
+                                            <div className="send-message">
+                                                <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
+                                                <button type="button" className="send-button" onClick={sendValue}>send</button>
+                                            </div>
+                                        </div>}
+                                        {(tab !== "CHATROOM" && grpFlag) && <div className="chat-content">
+                                            <ul className="chat-messages">
+                                                {[...groupChats.get(tab)].map((chat, index) => (
+                                                    <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
+                                                        {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
+                                                        <div className="message-data">{chat.message}</div>
+                                                        {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
+                                                    </li>
+                                                ))}
+                                            </ul>
+
+                                            <div className="send-message">
+                                                <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
+                                                <button type="button" className="send-button" onClick={sendgroupValue}>send</button>
+                                            </div>
+                                        </div>}
+                                        {(tab !== "CHATROOM" && !grpFlag) && <div className="chat-content">
+                                            <ul className="chat-messages">
+                                                {[...privateChats.get(tab)].map((chat, index) => (
+                                                    <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
+                                                        {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
+                                                        <div className="message-data">{chat.message}</div>
+                                                        {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
+                                                    </li>
+                                                ))}
+                                            </ul>
+
+                                            <div className="send-message">
+                                                <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
+                                                <button type="button" className="send-button" onClick={sendPrivateValue}>send</button>
+                                            </div>
+                                        </div>}
+                                    </div>
+                                    :
+                                    <div>
+                                        <input
+                                            id="user-name"
+                                            placeholder="Enter your name"
+                                            name="userName"
+                                            value={userData.username}
+                                            onChange={handleUsername}
+                                            margin="normal"
+                                        />
+                                        <input
+                                            id="grp_id"
+                                            placeholder="Enter your group ID"
+                                            name="groupId"
+                                            value={userData.groupId}
+                                            onChange={handlegroupId}
+                                            margin="normal"
+                                        />
+                                        <button type="button" onClick={registerUser}>
+                                            connect
+                                        </button>
+
+                                    </div>}
+                            </div>
+                        </Modal.Body>
+                    </Modal>
+
+                </div>
             </div>
-            {tab==="CHATROOM" && <div className="chat-content">
-                <ul className="chat-messages">
-                    {publicChats.map((chat,index)=>(
-                        <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                            {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
-                            <div className="message-data">{chat.message}</div>
-                            {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
-                        </li>
-                    ))}
-                </ul>
-
-                <div className="send-message">
-                    <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} /> 
-                    <button type="button" className="send-button" onClick={sendValue}>send</button>
-                </div>
-            </div>}
-            {(tab!=="CHATROOM" && grpFlag) && <div className="chat-content">
-                <ul className="chat-messages">
-                    {[...groupChats.get(tab)].map((chat,index)=>(
-                        <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                            {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
-                            <div className="message-data">{chat.message}</div>
-                            {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
-                        </li>
-                    ))}
-                </ul>
-
-                <div className="send-message">
-                    <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} /> 
-                    <button type="button" className="send-button" onClick={sendgroupValue}>send</button>
-                </div>
-            </div>}
-            {(tab!=="CHATROOM" && !grpFlag) && <div className="chat-content">
-                <ul className="chat-messages">
-                    {[...privateChats.get(tab)].map((chat,index)=>(
-                        <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                            {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
-                            <div className="message-data">{chat.message}</div>
-                            {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
-                        </li>
-                    ))}
-                </ul>
-
-                <div className="send-message">
-                    <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} /> 
-                    <button type="button" className="send-button" onClick={sendPrivateValue}>send</button>
-                </div>
-            </div>}
         </div>
-        :
-        <div className="register">
-            <input
-                id="user-name"
-                placeholder="Enter your name"
-                name="userName"
-                value={userData.username}
-                onChange={handleUsername}
-                margin="normal"
-              />
-              <input
-                id="grp_id"
-                placeholder="Enter your group ID"
-                name="groupId"
-                value={userData.groupId}
-                onChange={handlegroupId}
-                margin="normal"
-              />
-              <button type="button" onClick={registerUser}>
-                    connect
-              </button> 
-        </div>}
-    </div>
-    </div>
     )
 }
-  
-  export default ChatRoom;
+
+export default ChatRoom;

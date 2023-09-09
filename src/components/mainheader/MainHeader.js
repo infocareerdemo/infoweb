@@ -1,11 +1,11 @@
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, Navigate, useHistory, useLocation,useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-// import { Modal } from "react-bootstrap";
 import "../../components/sidebar/sidebar.css"
 import { CgProfile } from "react-icons/cg"
-
+import ChatRoom from "../../poc/chatRoom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button } from 'react-bootstrap';
 const MainHeader = (props) => {
-  // const pro = useState(props)
   const location = useLocation();
 
   const popover = useRef(null);
@@ -18,7 +18,13 @@ const MainHeader = (props) => {
   const [show1, setShow1] = useState(false);
 
   const [name] = useState(localStorage.getItem("EmpName"));
-
+  const navigate = useNavigate();
+  const nav =() =>{
+    navigate('/chatRoom')
+  }
+  const navToChatRoom = () => {
+    props.openChatModal(); // Call the function from props to open the modal
+  }
   const log = () => {
     setShow(!show);
   }
@@ -73,21 +79,25 @@ const MainHeader = (props) => {
         <div className="page-title-box">
           <h3>InfoDemo</h3>
         </div>
+
         <a id="mobile_btn" className="mobile_btn" onClick={() => onMenuClik()}><i className="fa fa-bars" /></a>
-        <div className="nav user-menu" style={{marginTop:"10px"}}>
+        <div className="nav user-menu" style={{ marginTop: "10px" }}>
+          <div onClick={navToChatRoom} style={{marginTop:"10px"}} > <a>Chat</a></div>
+       
           <div className="has-arrow main-drop" >
             <a onClick={() => log()} className="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-              <span className="user-img me-1"><CgProfile style={{ fontSize: "30px" ,color:"white"}} />
-                {/* <span className="status online" /> */}
+              <span className="user-img me-1"><CgProfile style={{ fontSize: "30px", color: "white" }} />
+
               </span>
-              {/* <span>{name}</span> */}
+              
+                
+              
             </a>
             {show &&
-              <div className="dropdown dropdown-menu show" style={{ padding: "10px"}}>
+              <div className="dropdown dropdown-menu show" style={{ padding: "10px" }}>
                 <Link className="dropdown-item" to="/myprofile" style={{ fontSize: "16px" }}>My Profile</Link>
                 <Link className="dropdown-item" to="/chngpass" style={{ fontSize: "16px" }}>Change Password</Link>
                 <Link className="dropdown-item" to="#" style={{ fontSize: "16px" }} onClick={() => logout()} >Logout</Link>
-                {/* <Link className="dropdown-item" to="/chngpass" style={{ fontSize: "16px" }}>Change Pass</Link> */}
 
               </div>
             }
@@ -99,7 +109,6 @@ const MainHeader = (props) => {
             mobileshow &&
             <div className="dropdown-menu  show dropdown" >
               <Link className="dropdown-item" to="/chngpass" >Change Password</Link>
-              {/* <Link className="dropdown-item" to="/chngpass" >Change Pass</Link> */}
 
               <span className="dropdown-item" onClick={() => logout()}>Logout</span>
             </div>

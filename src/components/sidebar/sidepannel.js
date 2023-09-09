@@ -9,6 +9,7 @@ import "./sidebar.css"
 
 import { Link, useLocation } from "react-router-dom";
 import StockPriceChat from "../../pages/chat/StockPriceChat";
+import ChatRoom from "../../poc/chatRoom";
 
 
 const Sidepannel = () => {
@@ -40,6 +41,7 @@ const Sidepannel = () => {
   return (
     <div className="sidebar" id="sidebar">
     <StockPriceChat/>
+    {/* <ChatRoom/> */}
       <div className="sidebar-inner slimscroll">
         <div id="sidebar-menu" className="sidebar-menu">
           <ul>
@@ -98,7 +100,7 @@ const Sidepannel = () => {
             {/* <li className={local.pathname === "/WebsocketApi" ? "active" : ""}>
               <Link to="/websocketapi" ><ReceiptOutlinedIcon /><span>WebsocketApi</span></Link>
             </li> */}
-            
+  
             
           </ul>
         </div>

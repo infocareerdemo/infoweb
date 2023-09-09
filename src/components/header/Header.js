@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './header.css';
 import StockPriceChat from '../../pages/chat/StockPriceChat';
+import ChatRoom from '../../poc/chatRoom';
 
 const Header = () => {
     const [activeLink, setActiveLink] = useState('');
@@ -19,6 +20,7 @@ const Header = () => {
     return (
         <div>
         <StockPriceChat></StockPriceChat>
+        {/* <ChatRoom></ChatRoom> */}
         <header className="header">
         {/* <StockPriceChat></StockPriceChat> */}
             <div style={{display:"flex",justifyContent:"space-between",margin:"15px",width:"25%",float:"right"}}>

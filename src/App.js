@@ -40,6 +40,10 @@ import Login from './pages/login/Login';
 import HomePage from './pages/HomePage';
 import ChangePassword from './pages/ChangePassword';
 import ChatRoom from './poc/chatRoom';
+import Testmodal from './Testmodal';
+// import Modalss from './poc/modal';
+
+
 
 
 const App = () => {
@@ -79,7 +83,8 @@ const App = () => {
           <Route path="/stockallpages" element={<StockAllPages/>} />
           <Route path="/stockpricechat" element={<StockPriceChat/>} />
           <Route path="/websocketapi" element={<WebsocketApi/>} />
-          
+          <Route path="/Testmodal" element={<Testmodal></Testmodal>} />
+          {/* <Route path="/modalss" element={<Modalss/>} /> */}
           
           {/* uncomment below line for testing QA using facerecognize and background noice */}
           
