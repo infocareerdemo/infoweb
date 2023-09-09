@@ -13,7 +13,6 @@ import MyProfile from './pages/MyProfile';
 import './bootstrap.css'
 import './bootstrap.min.css';
 import SessionTimeout from './service/SessionTimeOut';
-import ChatRoom from './poc/chatRoom';
 import Navpage from './camera/Navpage';
 import HeaderCamera from './camera/HeaderCamera';
 import Qutions from './camera/Qutions';
@@ -40,6 +39,7 @@ import Home from './components/header/Home';
 import Login from './pages/login/Login';
 import HomePage from './pages/HomePage';
 import ChangePassword from './pages/ChangePassword';
+import ChatRoom from './poc/chatRoom';
 
 
 const App = () => {
@@ -64,7 +64,7 @@ const App = () => {
           <Route path="/myprofile" element={<MyProfile />} />
           <Route path="/chngpass" element={<ChangePassword />} />
           <Route path="/chatroom" element={<ChatRoom/>} />
-          <Route path="/camerarec" element={<ChatRoom/>} />
+          {/* <Route path="/camerarec" element={<ChatRoom/>} /> */}
           <Route path="/companysearch" element={<CompanySearch/>} /> 
           <Route path="/commonsearch" element={<CommonSearch/>} />
           <Route path="/websocketmsg" element={<WebSocketMsg/>} />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {over} from 'stompjs';
 import SockJS from 'sockjs-client';
-//import './chat.css';
+// import './chat.css';
 import MainHeader from "../components/mainheader/MainHeader";
 import Sidepannel from "../components/sidebar/sidepannel";
 
